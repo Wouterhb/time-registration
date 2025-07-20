@@ -25,8 +25,8 @@ Een eenvoudige tijdregistratie-app gebouwd met Laravel 12.
 1. Clone de repository
 
 ```bash
-git clone https://github.com/<jouw-gebruikersnaam>/<repo-naam>.git
-cd <repo-naam>
+git clone https://github.com/Wouterhb/time-registration.git
+cd time-registration
 ```
 
 2. Installeer depedencies
