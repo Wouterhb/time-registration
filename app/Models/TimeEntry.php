@@ -19,6 +19,12 @@ class TimeEntry extends Model
         'description',
     ];
 
+    protected $casts = [
+    'date' => 'date',
+    'start_time' => 'datetime',
+    'end_time'   => 'datetime',
+];
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);

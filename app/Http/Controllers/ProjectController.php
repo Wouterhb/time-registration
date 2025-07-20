@@ -44,9 +44,9 @@ class ProjectController extends Controller
     {
         Gate::authorize('create', Project::class);
 
-        $project = $action->execute($request->validated(), Auth::user());
+        $action->execute($request->validated(), Auth::user());
 
-        return redirect()->route('projects.show', $project)->with('success', 'Project created.');
+        return redirect()->route('projects.index')->with('success', 'Project created.');
     }
 
     /**
@@ -78,7 +78,7 @@ class ProjectController extends Controller
 
         $action->execute($request->validated(), $project);
 
-        return redirect()->route('projects.show', $project)->with('success', 'Project updated.');
+        return redirect()->route('projects.index', $project)->with('success', 'Project updated.');
     }
 
     /**
