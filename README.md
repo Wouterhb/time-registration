@@ -13,12 +13,12 @@ Een eenvoudige tijdregistratie-app gebouwd met Laravel 12.
 
 ## Technische details
 
--   Backend: Laravel 12, PHP 8.2+, Composer, NPM
--   Frontend: Blade templates (met tailwind)
--   Database: PostgreSQL (kan ook via andere drivers, zolang Laravel het maar ondersteund)
+-   Backend: Laravel 12, PHP 8.2+, Composer, npm
+-   Frontend: Blade templates, Tailwind
+-   Database: [Zolang Laravel het maar ondersteund](https://laravel.com/docs/12.x/database#introduction) (zelf PostgreSQL gebruikt)
 -   Authorisatie: Laravel Policies
 -   Validatie: Form Requests
--   Structuur: PSR-12, SRP, Actions & Services
+-   Structuur: PSR-12, SRP, Actions
 
 ## Installatie
 
@@ -61,25 +61,30 @@ DB_PASSWORD=
 php artisan migrate
 ```
 
-5. (Optioneel) run de seeder
-   Voegt toe:
-
--   Admin User: 'admin@example.com', password: 'password';
--   Normal User: 'user@example.com', password: 'password'
--   5 projects
--   tussen 5 en 10 time entries per project
+5. Run de seeder (Optioneel)
 
 ```bash
 php artisan db:seed
 ```
 
+Voegt het volgende toe:
+
+```javascript
+- Admin User => email: 'admin@example.com', password: 'password';
+- Normal User => email: 'user@example.com', password: 'password'
+- 5 projects
+- Tussen 5 en 10 time entries per project
+```
+
 5. Start de server
 
 ```bash
-php artisan serve
+composer run dev
 ```
 
-## (Optioneel) Testen
+## Testen (Optioneel) 
+
+(Momenteel alleen unit tests voor de `Actions`)
 
 ```bash
 php artisan test
