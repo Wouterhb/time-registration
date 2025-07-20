@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Projects\CreateProjectAction;
+use App\Actions\Projects\UpdateProjectAction;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -37,13 +39,13 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request, CreateProjectAction $action)
     {
         Gate::authorize('create', Project::class);
 
-        Auth::user()->projects()->create($request->validated());
+        $project = $action->execute($request->validated(), Auth::user());
 
-        return redirect()->route('projects.index')->with('success', 'Project created.');
+        return redirect()->route('projects.show', $project)->with('success', 'Project created.');
     }
 
     /**
@@ -69,11 +71,11 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project, UpdateProjectAction $action)
     {
         Gate::authorize('update', $project);
 
-        $project->update($request->validated());
+        $action->execute($request->validated(), $project);
 
         return redirect()->route('projects.show', $project)->with('success', 'Project updated.');
     }
