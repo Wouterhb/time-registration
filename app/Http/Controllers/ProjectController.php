@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Projects\CreateProjectAction;
+use App\Actions\Projects\DeleteProjectAction;
 use App\Actions\Projects\UpdateProjectAction;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
@@ -83,11 +84,11 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project, DeleteProjectAction $action)
     {
         Gate::authorize('delete', $project);
 
-        $project->delete();
+        $action->execute($project);
 
         return redirect()->route('projects.index')->with('success', 'Project deleted.');
     }

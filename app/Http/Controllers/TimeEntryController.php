@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\TimeEntries\CreateTimeEntryAction;
+use App\Actions\TimeEntries\DeleteTimeEntryAction;
 use App\Actions\TimeEntries\UpdateTimeEntryAction;
 use App\Http\Requests\StoreTimeEntryRequest;
 use App\Http\Requests\UpdateTimeEntryRequest;
@@ -81,11 +82,11 @@ class TimeEntryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project, TimeEntry $timeEntry)
+    public function destroy(Project $project, TimeEntry $timeEntry, DeleteTimeEntryAction $action)
     {
         Gate::authorize('delete', $timeEntry);
 
-        $timeEntry->delete();
+        $action->execute($timeEntry);
 
         return redirect()
             ->route('projects.time-entries.index', $project)
